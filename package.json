@@ -1,11 +1,12 @@
 {
-  "name": "@lvcca/assert",
-  "version": "1.0.0",
-  "main": "dist/_globals.js",
-  "types": "global.d.ts",
+  "name": "@lvcca/ts-assert",
+  "version": "1.1.2",
+  "description": "TypeScript assertion utilities.",
+  "main": "./dist/_globals.js",
+  "types": "./global.d.ts",
   "files": [
-      "dist/",
-      "global.d.ts"
+    "dist/",
+    "global.d.ts"
   ],
   "license": "MIT",
   "scripts": {
@@ -14,5 +15,22 @@
   "devDependencies": {
     "typescript": "^7.0.0"
   },
-  "license": "MIT"
+  "keywords": [
+    "typescript",
+    "assert",
+    "assertion",
+    "type-assertion",
+    "type-assertions",
+    "type-safety",
+    "type-checking",
+    "type-guard",
+    "type-guards",
+    "type-testing",
+    "type-utils",
+    "typescript-utils",
+    "validation",
+    "testing",
+    "test-utilities",
+    "developer-tools"
+  ]
 }

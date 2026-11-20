@@ -1,14 +1,14 @@
 
-# assert
+# ts-assert
 
 A lightweight global assertion utility for TypeScript and JavaScript.
 
-Install it once, import it into your application, and use `assert()` globally without repeatedly importing the function.
+Install it once, import it into your application, and use `assert()` globally.
 
 ## Installation
 
 ```bash
-npm install @lvcca/assert
+npm install @lvcca/ts-assert
 ```
 
 ## Usage
@@ -16,7 +16,7 @@ npm install @lvcca/assert
 Import the package once in your application entry point:
 
 ```typescript
-import "@lvcca/assert";
+import "@lvcca/ts-assert";
 ```
 
 You can now use `assert()` globally:
@@ -24,6 +24,8 @@ You can now use `assert()` globally:
 ```typescript
 assert(true);  // Passes
 assert(false); // Throws default Error: '[*] Assertion failed'
+assert(user.balance > 0, 'incorrect balance') // Throws error with message 'incorrect balance'
+
 ```
 
 ## TypeScript Support
@@ -31,33 +33,75 @@ assert(false); // Throws default Error: '[*] Assertion failed'
 This package includes global TypeScript declarations, providing type checking and autocomplete without manually importing the function.
 
 ```typescript
-assert("hello"); // Valid
-
-assert(123); // Valid
-
-assert(null); // Valid
+assert(id !== '' && task !== '', 'Malformed call to GeneralInsert...');
 ```
-
-The function accepts any value and throws an error when the value is falsy.
 
 ## API
 
-### `assert(condition: unknown): void`
+### `assert<T extends boolean>(condition: T, msg?: string): asserts condition is T & true`
 
-Evaluates the provided condition.
+Asserts that a given condition is `true`. If the condition evaluates to `false`, an error is thrown with the provided message.
 
-| Parameter | Type | Description |
-|---|---|---|
-| `condition` | `unknown` | Value to evaluate |
+On successful assertion, TypeScript narrows the condition's type to `true`, allowing subsequent code to rely on the asserted condition.
 
-**Behavior:**
-- If the condition is truthy, execution continues.
-- If the condition is falsy, an `Error` is thrown.
+**Parameters**
 
-## Requirements
+- `condition` (`T`): The boolean condition to assert.
+- `msg` (`string`, optional): Custom error message. Defaults to `[*] Assertion failed`.
 
-- Node.js or a compatible JavaScript runtime.
-- TypeScript support (optional, for type declarations).
+**Throws**
+
+- `Error`: If the condition evaluates to `false`.
+
+### Usage
+
+```ts
+import '@lvcca/ts-assert';
+
+const isValid: boolean = validateInput();
+
+assert(isValid, 'Input validation failed');
+
+// TypeScript now knows isValid is true.
+```
+
+### Type Narrowing
+
+```ts
+function getUser(id: string) {
+    const user = users.find(user => user.id === id);
+
+    assert(user !== undefined, 'User not found');
+
+    // TypeScript knows user is defined here.
+    return user.name;
+}
+```
+
+### Custom Error Messages
+
+```ts
+assert(1 + 1 === 2, 'Math is broken'); // Passes
+
+assert(false, 'Something went wrong');
+// Throws: Error: Something went wrong
+
+assert(false);
+// Throws: Error: [*] Assertion failed
+```
+
+### Global Availability
+
+Importing the package registers `assert` on `globalThis`, making it available globally without requiring individual imports.
+
+```ts
+import '@lvcca/ts-assert';
+
+assert(true);
+
+globalThis.assert(true);
+```
+
 
 ## License
 
