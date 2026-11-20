@@ -1,6 +1,6 @@
 {
   "name": "@lvcca/ts-assert",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "TypeScript assertion utilities.",
   "main": "./dist/_globals.js",
   "types": "./global.d.ts",

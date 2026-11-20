@@ -1,9 +1,8 @@
-export {}
+export {};
 
 declare global {
-  var assert:(
-    condition: boolean,
-    msg?: string
-  ) => asserts condition is true
+    var assert: <T>(
+        condition: T,
+        msg?: string
+    ) => asserts condition;
 }
-
